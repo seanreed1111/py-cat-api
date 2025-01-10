@@ -4,7 +4,7 @@ from the_cat_api.exceptions import TheCatApiException
 
 
 class Result:
-    def __init__(self, status_code: int, message: str = '', data: list[dict] = None):
+    def __init__(self, status_code: int, message: str = "", data: list[dict] = None):
         """
         Result returned from low-level RestAdapter
         :param status_code: Standard HTTP Status code
@@ -37,9 +37,21 @@ class Category:
 
 
 class Breed:
-    def __init__(self, weight: Union[Weight, dict], id: str, name: str, country_codes: str, country_code: str,
-                 description: str, temperament: str = '', origin: str = '', life_span: str = '', alt_names: str = '',
-                 wikipedia_url: str = '', **kwargs) -> None:
+    def __init__(
+        self,
+        weight: Union[Weight, dict],
+        id: str,
+        name: str,
+        country_codes: str,
+        country_code: str,
+        description: str,
+        temperament: str = "",
+        origin: str = "",
+        life_span: str = "",
+        alt_names: str = "",
+        wikipedia_url: str = "",
+        **kwargs,
+    ) -> None:
         self.weight = Weight(**weight) if isinstance(weight, dict) else weight
         self.id = id
         self.name = name
@@ -55,7 +67,15 @@ class Breed:
 
 
 class ImageShort:
-    def __init__(self, id: int, url: str, categories: list[Category] = None, breeds: list[Breed] = None, data: bytes = bytes(), **kwargs):
+    def __init__(
+        self,
+        id: int,
+        url: str,
+        categories: list[Category] = None,
+        breeds: list[Breed] = None,
+        data: bytes = bytes(),
+        **kwargs,
+    ):
         self.id = id
         self.url = url
         self.categories = [] if not categories else [Category(**c) for c in categories]
@@ -63,11 +83,11 @@ class ImageShort:
         self.data = data
         self.__dict__.update(kwargs)
 
-    def save_to(self, path: str = './', file_name: str = ''):
+    def save_to(self, path: str = "./", file_name: str = ""):
         if not self.data:
             raise TheCatApiException("No data to save")
         try:
-            save_file_name = file_name if file_name else self.url.split('/')[-1]
+            save_file_name = file_name if file_name else self.url.split("/")[-1]
             save_path = os.path.join(path, save_file_name)
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             with open(save_path, "wb") as f:
@@ -77,8 +97,17 @@ class ImageShort:
 
 
 class ImageFull(ImageShort):
-    def __init__(self, id: int, url: str, sub_id: int = 0, created_at: str = '', original_filename: str = '',
-                 categories: list[Category] = None, breeds: list[Breed] = None, **kwargs):
+    def __init__(
+        self,
+        id: int,
+        url: str,
+        sub_id: int = 0,
+        created_at: str = "",
+        original_filename: str = "",
+        categories: list[Category] = None,
+        breeds: list[Breed] = None,
+        **kwargs,
+    ):
         super().__init__(id, url, categories, breeds, **kwargs)
         self.sub_id = sub_id
         self.created_at = created_at

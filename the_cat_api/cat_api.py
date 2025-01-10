@@ -5,14 +5,21 @@ from the_cat_api.models import ImageShort
 
 
 class TheCatApi:
-    def __init__(self, hostname: str = 'api.thecatapi.com', api_key: str = '', ver: str = 'v1', ssl_verify: bool = True, logger: logging.Logger = None):
+    def __init__(
+        self,
+        hostname: str = "api.thecatapi.com",
+        api_key: str = "",
+        ver: str = "v1",
+        ssl_verify: bool = True,
+        logger: logging.Logger = None,
+    ):
         self._rest_adapter = RestAdapter(hostname, api_key, ver, ssl_verify, logger)
 
     def get_kitty(self) -> ImageShort:
-        return self.get_clowder_of_kitties(amt=1)[0]
+        return self.get_clowder_of_kitties(amt=1)
 
     def get_clowder_of_kitties(self, amt: int = 1) -> list[ImageShort]:
-        result = self._rest_adapter.get(endpoint=f'/images/search?limit={amt}')
+        result = self._rest_adapter.get(endpoint=f"/images/search?limit={amt}")
         kitty_img_list = [ImageShort(**datum) for datum in result.data]
         return kitty_img_list
 
