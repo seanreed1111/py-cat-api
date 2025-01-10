@@ -8,7 +8,7 @@ class TheCatApi:
     def __init__(
         self,
         hostname: str = "api.thecatapi.com",
-        api_key: str = "",
+        api_key: str = "live_1jZeVPv5nP9UgVJxOt0flQEaChF2xqloShK5D6MfPgRlZE7Mt4Yudx2QSeywFBMs",
         ver: str = "v1",
         ssl_verify: bool = True,
         logger: logging.Logger = None,
