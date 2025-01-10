@@ -1,6 +1,6 @@
 import requests
 import logging
-from typing import List, Dict
+from typing import dict
 from json import JSONDecodeError
 from the_cat_api.exceptions import TheCatApiException
 from the_cat_api.models import Result
@@ -24,13 +24,13 @@ class RestAdapter:
             # noinspection PyUnresolvedReferences
             requests.packages.urllib3.disable_warnings()
 
-    def _do(self, http_method: str, endpoint: str, ep_params: Dict = None, data: Dict = None) -> Result:
+    def _do(self, http_method: str, endpoint: str, ep_params: dict = None, data: dict = None) -> Result:
         """
         Private method for get(), post(), delete(), etc. methods
         :param http_method: GET, POST, DELETE, etc.
         :param endpoint: URL Endpoint as a string
-        :param ep_params: Dictionary of Endpoint parameters (Optional)
-        :param data: Dictionary of data to pass to TheCatApi (Optional)
+        :param ep_params: dictionary of Endpoint parameters (Optional)
+        :param data: dictionary of data to pass to TheCatApi (Optional)
         :return: a Result object
         """
         full_url = self.url + endpoint
@@ -63,13 +63,13 @@ class RestAdapter:
         self._logger.error(msg=log_line)
         raise TheCatApiException(f"{response.status_code}: {response.reason}")
 
-    def get(self, endpoint: str, ep_params: Dict = None) -> Result:
+    def get(self, endpoint: str, ep_params: dict = None) -> Result:
         return self._do(http_method='GET', endpoint=endpoint, ep_params=ep_params)
 
-    def post(self, endpoint: str, ep_params: Dict = None, data: Dict = None) -> Result:
+    def post(self, endpoint: str, ep_params: dict = None, data: dict = None) -> Result:
         return self._do(http_method='POST', endpoint=endpoint, ep_params=ep_params, data=data)
 
-    def delete(self, endpoint: str, ep_params: Dict = None, data: Dict = None) -> Result:
+    def delete(self, endpoint: str, ep_params: dict = None, data: dict = None) -> Result:
         return self._do(http_method='DELETE', endpoint=endpoint, ep_params=ep_params, data=data)
 
     def fetch_data(self, url: str) -> bytes:

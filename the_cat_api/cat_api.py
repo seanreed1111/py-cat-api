@@ -1,7 +1,7 @@
 import logging
 from the_cat_api.rest_adapter import RestAdapter
 from the_cat_api.exceptions import TheCatApiException
-from the_cat_api.models import *
+from the_cat_api.models import ImageShort
 
 
 class TheCatApi:
@@ -11,7 +11,7 @@ class TheCatApi:
     def get_kitty(self) -> ImageShort:
         return self.get_clowder_of_kitties(amt=1)[0]
 
-    def get_clowder_of_kitties(self, amt: int = 1) -> List[ImageShort]:
+    def get_clowder_of_kitties(self, amt: int = 1) -> list[ImageShort]:
         result = self._rest_adapter.get(endpoint=f'/images/search?limit={amt}')
         kitty_img_list = [ImageShort(**datum) for datum in result.data]
         return kitty_img_list

@@ -1,15 +1,15 @@
 import os
-from typing import List, Dict, Union
+from typing import Union
 from the_cat_api.exceptions import TheCatApiException
 
 
 class Result:
-    def __init__(self, status_code: int, message: str = '', data: List[Dict] = None):
+    def __init__(self, status_code: int, message: str = '', data: list[dict] = None):
         """
         Result returned from low-level RestAdapter
         :param status_code: Standard HTTP Status code
         :param message: Human readable result
-        :param data: Python List of Dictionaries (or maybe just a single Dictionary on error)
+        :param data: Python list of dictionaries (or maybe just a single dictionary on error)
         """
         self.status_code = int(status_code)
         self.message = str(message)
@@ -55,7 +55,7 @@ class Breed:
 
 
 class ImageShort:
-    def __init__(self, id: int, url: str, categories: List[Category] = None, breeds: List[Breed] = None, data: bytes = bytes(), **kwargs):
+    def __init__(self, id: int, url: str, categories: list[Category] = None, breeds: list[Breed] = None, data: bytes = bytes(), **kwargs):
         self.id = id
         self.url = url
         self.categories = [] if not categories else [Category(**c) for c in categories]
@@ -78,7 +78,7 @@ class ImageShort:
 
 class ImageFull(ImageShort):
     def __init__(self, id: int, url: str, sub_id: int = 0, created_at: str = '', original_filename: str = '',
-                 categories: List[Category] = None, breeds: List[Breed] = None, **kwargs):
+                 categories: list[Category] = None, breeds: list[Breed] = None, **kwargs):
         super().__init__(id, url, categories, breeds, **kwargs)
         self.sub_id = sub_id
         self.created_at = created_at
